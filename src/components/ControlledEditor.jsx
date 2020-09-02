@@ -18,6 +18,7 @@ export class ControlledEditor extends Component {
 		  }
 		this.uploadImageCallBack = this.uploadImageCallBack.bind(this);
 		this.onEditorStateChange = this.onEditorStateChange.bind(this);
+		this.showState = this.showState.bind(this);
 	}
 	
 	onEditorStateChange(editorState) {
@@ -39,19 +40,6 @@ export class ControlledEditor extends Component {
 			const response = JSON.parse(xhr.responseText);
 			resolve({
 				"data": {
-					"id": "SbBGk",
-					"title": null,
-					"description": null,
-					"datetime": 1341533193,
-					"type": "image/jpeg",
-					"animated": false,
-					"width": 2559,
-					"height": 1439,
-					"size": 521916,
-					"views": 1,
-					"bandwidth": 521916,
-					"deletehash": "eYZd3NNJHsbreD1",
-					"section": null,
 					"link": response[0].url
 				},
 				"success": true,
@@ -64,6 +52,10 @@ export class ControlledEditor extends Component {
 		  });
 		}
 	  );
+	}
+
+	showState() {
+		alert(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
 	}
 	render() {
 		return(
@@ -85,6 +77,7 @@ export class ControlledEditor extends Component {
           disabled
           value={draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))}
         />
+		<button onClick={this.showState}>Show State</button>
 			</>
 
 		)
